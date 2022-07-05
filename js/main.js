@@ -33,7 +33,7 @@ const DESCRIPTIONS = [
 
 const NAMES = ["Иван", "Хуан Себастьян", "Мария", "Кристоф"];
 
-const SENTENCES = [
+const COMMENTS = [
   "Всё отлично!",
   "В целом всё неплохо. Но не всё.",
   "Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.",
@@ -52,7 +52,7 @@ const createComment = () => {
     id: getCommentId(),
     name: getRandomArrayElement(NAMES),
     avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
-    message: getRandomArrayElement(SENTENCES),
+    message: getRandomArrayElement(COMMENTS),
   };
 };
 
