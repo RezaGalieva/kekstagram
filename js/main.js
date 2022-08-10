@@ -2,5 +2,4 @@
 
 import { cards } from './data.js';
 import './preview.js';
-
-console.log(cards);
+import './full-size-picture.js';
