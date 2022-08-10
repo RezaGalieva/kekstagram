@@ -28,7 +28,7 @@ let nextCommentId = 0;
 /** Функция возвращает новый ID */
 const getCommentId = () => nextCommentId++;
 
-export const createComment = () => {
+const createComment = () => {
   return {
     id: getCommentId(),
     name: getRandomArrayElement(NAMES),

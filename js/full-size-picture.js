@@ -21,10 +21,7 @@ smallPictures.forEach((picture) => {
       .querySelector('.social__comment-count')
       .classList.add('hidden');
     bigPictureModal.querySelector('.comments-loader').classList.add('hidden');
-    const oldComments = bigPictureModal.querySelectorAll('.social__comments');
-    oldComments.forEach((comment) => {
-      comment.innerHTML = '';
-    });
+    bigPictureModal.querySelector('.social__comments').innerHTML = '';
 
     // из card брать данные для заполнения большой карточки
     bigPictureModal.querySelector('.big-picture__img img').src = card.url;
@@ -35,10 +32,10 @@ smallPictures.forEach((picture) => {
       card.description;
 
     // создание комментария
+    const templateComment = document
+      .querySelector('#comment')
+      .content.querySelector('.social__comment');
     card.comments.forEach((comment) => {
-      const templateComment = document
-        .querySelector('#comment')
-        .content.querySelector('.social__comment');
       const newComment = templateComment.cloneNode(true);
       newComment.querySelector('.social__picture').src = comment.avatar;
       newComment.querySelector('.social__picture').alt = comment.name;
