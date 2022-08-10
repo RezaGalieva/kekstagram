@@ -26,3 +26,8 @@ export const checkStringLength = (text, amount) => {
 export const getRandomArrayElement = (elements) => {
   return elements[getRandomNumber(0, elements.length - 1)];
 };
+
+/** Проверка нажатой клавиши ESC */
+export const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
