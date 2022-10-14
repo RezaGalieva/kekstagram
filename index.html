@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/nouislider@14.6.3/distribute/nouislider.min.css"
+    />
     <title>Кекстаграм</title>
   </head>
 
@@ -145,9 +149,9 @@
                           checked
                         />
                         <label for="effect-none" class="effects__label">
-                          <span class="effects__preview effects__preview--none"
-                            >Превью фото без эффекта</span
-                          >
+                          <span class="effects__preview effects__preview--none">
+                            Превью фото без эффекта
+                          </span>
                           Оригинал
                         </label>
                       </li>
@@ -162,8 +166,9 @@
                         <label for="effect-chrome" class="effects__label">
                           <span
                             class="effects__preview effects__preview--chrome"
-                            >Превью эффекта Хром</span
                           >
+                            Превью эффекта Хром
+                          </span>
                           Хром
                         </label>
                       </li>
@@ -176,9 +181,11 @@
                           value="sepia"
                         />
                         <label for="effect-sepia" class="effects__label">
-                          <span class="effects__preview effects__preview--sepia"
-                            >Превью эффекта Сепия</span
+                          <span
+                            class="effects__preview effects__preview--sepia"
                           >
+                            Превью эффекта Сепия
+                          </span>
                           Сепия
                         </label>
                       </li>
@@ -193,8 +200,9 @@
                         <label for="effect-marvin" class="effects__label">
                           <span
                             class="effects__preview effects__preview--marvin"
-                            >Превью эффекта Марвин</span
                           >
+                            Превью эффекта Марвин
+                          </span>
                           Марвин
                         </label>
                       </li>
@@ -462,7 +470,7 @@
       </div>
     </template>
 
-    <!-- Шаблон комментария сообщения комментария -->
+    <!-- Шаблон сообщения комментария -->
     <template id="comment">
       <li class="social__comment">
         <img class="social__picture" src="" alt="" width="35" height="35" />
@@ -471,5 +479,6 @@
     </template>
 
     <script src="./js/main.js" type="module"></script>
+    <script src="https://unpkg.com/nouislider@14.6.3/distribute/nouislider.min.js"></script>
   </body>
 </html>

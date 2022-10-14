@@ -44,18 +44,21 @@ smallPictures.forEach((picture) => {
     });
   });
 
+  // Закрытие формы
+  const modalClose = () => {
+    body.classList.remove('modal-open');
+    bigPictureModal.classList.add('hidden');
+  };
   // закрытие окна через клавишу
   document.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
-      body.classList.remove('modal-open');
-      bigPictureModal.classList.add('hidden');
+      modalClose();
     }
   });
   // закрытие окна нажатием на кнопку
   const buttonClose = bigPictureModal.querySelector('.big-picture__cancel');
   buttonClose.addEventListener('click', () => {
-    body.classList.remove('modal-open');
-    bigPictureModal.classList.add('hidden');
+    modalClose();
   });
 });
