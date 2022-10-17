@@ -28,19 +28,16 @@ uploadFile.addEventListener('change', () => {
   body.classList.add('modal-open');
   levelEffect.classList.add('hidden');
 
-  function PreviewImage() {
-    const oFReader = new FileReader();
-    oFReader.readAsDataURL(uploadFile.files[0]);
+  const oFReader = new FileReader();
+  oFReader.readAsDataURL(uploadFile.files[0]);
 
-    oFReader.onload = function (oFREvent) {
-      imgUploadPreview.src = oFREvent.target.result;
+  oFReader.onload = function (oFREvent) {
+    imgUploadPreview.src = oFREvent.target.result;
 
-      effectsPreview.forEach((element) => {
-        element.style.backgroundImage = `url(${oFREvent.target.result})`;
-      });
-    };
-  }
-  PreviewImage();
+    effectsPreview.forEach((element) => {
+      element.style.backgroundImage = `url(${oFREvent.target.result})`;
+    });
+  };
 
   scaleControlValue.value = 100 + '%';
 });
@@ -140,7 +137,7 @@ chromeEffects.addEventListener('click', () => {
   });
   stepSlider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-    const grayscale = `grayscale(${(effectLevelValue.value = values[handle])})`;
+    const grayscale = `grayscale(${effectLevelValue.value})`;
     imgUploadPreview.style.filter = grayscale;
   });
 });
@@ -160,7 +157,7 @@ sepiaEffects.addEventListener('click', () => {
   });
   stepSlider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-    const sepia = `sepia(${(effectLevelValue.value = values[handle])})`;
+    const sepia = `sepia(${effectLevelValue.value})`;
     imgUploadPreview.style.filter = sepia;
   });
 });
@@ -180,9 +177,7 @@ marvinEffects.addEventListener('click', () => {
   });
   stepSlider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-    const invert = `invert(${Math.floor(
-      (effectLevelValue.value = values[handle]),
-    )}%)`;
+    const invert = `invert(${Math.floor(effectLevelValue.value)}%)`;
     imgUploadPreview.style.filter = invert;
   });
 });
@@ -202,9 +197,7 @@ phobosEffects.addEventListener('click', () => {
   });
   stepSlider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-    const blur = `blur(${parseInt(
-      (effectLevelValue.value = values[handle]),
-    )}px)`;
+    const blur = `blur(${parseInt(effectLevelValue.value)}px)`;
     imgUploadPreview.style.filter = blur;
   });
 });
@@ -224,8 +217,7 @@ heatEffects.addEventListener('click', () => {
   });
   stepSlider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-    const brightness = `brightness(${(effectLevelValue.value =
-      values[handle])})`;
+    const brightness = `brightness(${effectLevelValue.value})`;
     imgUploadPreview.style.filter = brightness;
   });
 });
