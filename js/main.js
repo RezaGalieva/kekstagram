@@ -5,3 +5,4 @@ import './preview.js';
 import './full-size-picture.js';
 import './nouislider.js';
 import './upload-picture.js';
+import './form-validation.js';

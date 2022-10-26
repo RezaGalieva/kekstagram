@@ -3,7 +3,7 @@ import { isEscEvent } from './util.js';
 import './nouislider.js';
 const body = document.querySelector('body');
 const formUpload = document.querySelector('.img-upload__start');
-const imgUploadOverlay = document.querySelector('.img-upload__overlay');
+export const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadFile = formUpload.querySelector('#upload-file');
 const imgUploadPreview = imgUploadOverlay.querySelector(
   '.img-upload__preview img',
