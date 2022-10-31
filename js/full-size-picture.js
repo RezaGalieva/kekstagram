@@ -1,64 +1,84 @@
-import './preview.js';
-import { cards } from './data.js';
 import { isEscEvent } from './util.js';
 
-const smallPictures = document.querySelectorAll('.picture');
+export const body = document.querySelector('body');
 const bigPictureModal = document.querySelector('.big-picture');
 const socialCommentsModule = bigPictureModal.querySelector('.social__comments');
-const body = document.querySelector('body');
+const templateComment = document
+  .querySelector('#comment')
+  .content.querySelector('.social__comment');
+const commentsLoader = bigPictureModal.querySelector('.comments-loader');
+let showMoreComments;
 
-smallPictures.forEach((picture) => {
-  // извлечь id из атрибута элемента picture
-  const cardId = Number(picture.getAttribute('data-id'));
-  // найти объект card из массива cards
-  const card = cards.find((element) => cardId === element.id);
-
-  picture.addEventListener('click', () => {
-    //скрыть ненужные объекты
+/** добавить обработчик нажатия на превью для открытия большого окна */
+export const addPicturePreviewEventListener = (preview, card) => {
+  preview.addEventListener('click', () => {
+    // скрытие ненужных объектов, добавление нужных
     body.classList.add('modal-open');
     bigPictureModal.classList.remove('hidden');
-    bigPictureModal
-      .querySelector('.social__comment-count')
-      .classList.add('hidden');
-    bigPictureModal.querySelector('.comments-loader').classList.add('hidden');
     bigPictureModal.querySelector('.social__comments').innerHTML = '';
 
     // из card брать данные для заполнения большой карточки
     bigPictureModal.querySelector('.big-picture__img img').src = card.url;
     bigPictureModal.querySelector('.likes-count').textContent = card.likes;
+
     bigPictureModal.querySelector('.comments-count').textContent =
       card.comments.length;
     bigPictureModal.querySelector('.social__caption').textContent =
       card.description;
 
-    // создание комментария
-    const templateComment = document
-      .querySelector('#comment')
-      .content.querySelector('.social__comment');
-    card.comments.forEach((comment) => {
+    // создание комментариев
+
+    const addComment = (comment) => {
       const newComment = templateComment.cloneNode(true);
       newComment.querySelector('.social__picture').src = comment.avatar;
       newComment.querySelector('.social__picture').alt = comment.name;
       newComment.querySelector('.social__text').textContent = comment.message;
       socialCommentsModule.appendChild(newComment);
-    });
-  });
+    };
 
-  // Закрытие формы
-  const modalClose = () => {
-    body.classList.remove('modal-open');
-    bigPictureModal.classList.add('hidden');
-  };
-  // закрытие окна через клавишу
-  document.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      modalClose();
+    if (card.comments.length <= 5) {
+      commentsLoader.classList.add('hidden');
     }
+
+    // первые 5 комментариев
+    const firstComments = card.comments.slice(0, 5);
+    firstComments.forEach(addComment);
+    bigPictureModal.querySelector('.comments-current').textContent =
+      firstComments.length;
+
+    showMoreComments = () => {
+      const commentsCount =
+        socialCommentsModule.querySelectorAll('.social__comment').length;
+      const newComments = card.comments.slice(commentsCount, commentsCount + 5);
+      newComments.forEach(addComment);
+      bigPictureModal.querySelector('.comments-current').textContent =
+        commentsCount + newComments.length;
+      if (commentsCount + newComments.length === card.comments.length) {
+        commentsLoader.classList.add('hidden');
+      }
+    };
+
+    // загрузить ещё
+    commentsLoader.addEventListener('click', showMoreComments);
   });
-  // закрытие окна нажатием на кнопку
-  const buttonClose = bigPictureModal.querySelector('.big-picture__cancel');
-  buttonClose.addEventListener('click', () => {
+};
+
+// Закрытие формы
+const modalClose = () => {
+  body.classList.remove('modal-open');
+  bigPictureModal.classList.add('hidden');
+  commentsLoader.classList.remove('hidden');
+  commentsLoader.removeEventListener('click', showMoreComments);
+};
+// закрытие окна через клавишу
+document.addEventListener('keydown', (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
     modalClose();
-  });
+  }
+});
+// закрытие окна нажатием на кнопку
+const buttonClose = bigPictureModal.querySelector('.big-picture__cancel');
+buttonClose.addEventListener('click', () => {
+  modalClose();
 });
