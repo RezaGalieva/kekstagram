@@ -64,7 +64,7 @@ formImgUpload.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
 
-  fetch('https://23.javascript.pages.academy/kekstagr111am', {
+  fetch('https://23.javascript.pages.academy/kekstagram', {
     method: 'POST',
     body: formData,
   })
