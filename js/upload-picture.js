@@ -1,7 +1,7 @@
 // Загрузка изображения
 import { isEscEvent } from './util.js';
 import './nouislider.js';
-const body = document.querySelector('body');
+import { body } from './full-size-picture.js';
 const formUpload = document.querySelector('.img-upload__start');
 export const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadFile = formUpload.querySelector('#upload-file');
@@ -24,26 +24,31 @@ const levelEffect = imgUploadOverlay.querySelector('.img-upload__effect-level');
 
 // Открытие формы редактирования изображения
 uploadFile.addEventListener('change', () => {
-  imgUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  levelEffect.classList.add('hidden');
-
   const oFReader = new FileReader();
   oFReader.readAsDataURL(uploadFile.files[0]);
 
   oFReader.onload = function (oFREvent) {
+    body.classList.add('modal-open');
+    levelEffect.classList.add('hidden');
+    imgUploadOverlay.classList.remove('hidden');
+
     imgUploadPreview.src = oFREvent.target.result;
 
     effectsPreview.forEach((element) => {
       element.style.backgroundImage = `url(${oFREvent.target.result})`;
     });
+    removeEffects();
+    levelEffect.classList.add('hidden');
+    const effectNone = 'none';
+    imgUploadPreview.style.filter = effectNone;
+    noneEffects.checked = true;
   };
 
   scaleControlValue.value = 100 + '%';
 });
 
 // Закрытие формы
-const modalClose = () => {
+export const modalClose = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadFile.value = '';
@@ -112,7 +117,6 @@ const removeEffects = () => {
   imgUploadPreview.classList.remove('effects__preview--heat');
 
   levelEffect.classList.remove('hidden');
-  //effectLevelValue.value = '';
 };
 
 noneEffects.addEventListener('click', () => {
